@@ -62,44 +62,18 @@ function add_card(){
 function createPopup() {
   // Tạo một div mới để chứa popup
   var popup = document.createElement("div");
-  popup.style.position = "fixed";
-  popup.style.top = "50%";
-  popup.style.left = "50%";
-  popup.style.transform = "translate(-50%, -50%)";
-  popup.style.width= "300px";
-  popup.style.minHeight= "300px";
-  popup.style.height= "auto";
-  popup.style.backgroundColor="#fff7ea" ;
-  popup.style.display= "flex";
-  popup.style.flexDirection= "column";
-  popup.style.alignItems= "center";
-  popup.style.borderRadius= "30px";
-  popup.style.padding= "50px";
-  popup.style.gap= "30px";
-  popup.style.boxShadow= "#000000 0px 0px 1111vw";
+  popup.className = "popup_header";
   // Tạo một input để người dùng nhập tên
   var nameInput = document.createElement("input");
   nameInput.type = "text";
   nameInput.placeholder = "Tên của bạn";
-  nameInput.style.border= "none";
-  nameInput.style.width= "200px";
-  nameInput.style.minHeight= "50px";
-  nameInput.style.borderRadius= "10px";
-  nameInput.style.paddingLeft="10px";
-  nameInput.style.backgroundColor= "white";
-  nameInput.style.color = 'rgba(0, 0, 0,0.5)'
+  nameInput.className = "popup_title"
   popup.appendChild(nameInput);
 
   // Tạo một textarea để người dùng nhập lời nhắn
   var messageInput = document.createElement("textarea");
   messageInput.placeholder = "Lời nhắn của bạn";
-  messageInput.style.border = 'none';
-  messageInput.style.width = '200px';
-  messageInput.style.minHeight = '150px';
-  messageInput.style.borderRadius = '10px';
-  messageInput.style.padding = '20px';
-  messageInput.style.backgroundColor = 'white';
-  messageInput.style.color = 'rgba(0, 0, 0,0.5)'
+  messageInput.className = "popup_message";
   popup.appendChild(messageInput);
 
 
@@ -112,13 +86,7 @@ function createPopup() {
   // Tạo một nút để người dùng gửi thông tin
   var submitButton = document.createElement("button");
   submitButton.innerHTML = "GỬI";
-  submitButton.style.width = 'auto';
-  submitButton.style.padding= '0px 10px'
-  submitButton.style.height = '30px';
-  submitButton.style.backgroundColor = '#ff721b';
-  submitButton.style.color = '#fff7ea';
-  submitButton.style.borderRadius = '3px';
-  submitButton.style.textAlign = 'center';
+  submitButton.className = "popup_btn";
   submitButton.onclick = function() {
       // Lấy giá trị từ input và textarea
       var name = nameInput.value;
@@ -148,13 +116,7 @@ function createPopup() {
    // Tạo nút huỷ
   var cancelButton = document.createElement("button");
   cancelButton.innerHTML = "HUỶ";
-  cancelButton.style.width = 'auto';
-  cancelButton.style.padding= '0px 10px'
-  cancelButton.style.height = '30px';
-  cancelButton.style.backgroundColor = '#ff721b';
-  cancelButton.style.color = '#fff7ea';
-  cancelButton.style.borderRadius = '3px';
-  cancelButton.style.textAlign = 'center';
+  cancelButton.className = "popup_btn"
   cancelButton.onclick = function() {
     document.body.removeChild(popup);
   }

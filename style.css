@@ -28,10 +28,10 @@ body{
     background-color: var(--orange);
     color: #ffffff;
     width: 100px;
-    height: 50px;
+    height: 40px;
     text-align: center;
     border-radius: 7px;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .header_bar button:hover{
@@ -46,6 +46,14 @@ body{
     justify-content: center;
     flex-wrap: wrap;
     gap: 40px
+}
+@media screen and (max-width:600px){
+    .header_info{
+        margin: 50px 20px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .header_info_para{
@@ -159,4 +167,51 @@ body{
     opacity: 1;
     text-shadow: none !important;
     color: var(--white) !important;
+}
+
+.popup_header {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    min-height: 300px;
+    height: auto;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    padding: 50px;
+    gap: 30px;
+    box-shadow: #000000 0px 0px 1111vw;
+}
+.popup_title {
+    border: none;
+    width: 200px;
+    min-height: 50px;
+    border-radius: 10px;
+    padding-left:10px;
+    background-color: white;
+    color: var(--blue);
+}
+
+
+.popup_message {
+    border: none;
+    width: 200px;
+    min-height: 150px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    color: var(--orange)
+}
+.popup_btn{
+    width: 50px;
+    height: 30px;
+    background-color: var(--orange);
+    color: var(--white);
+    border-radius: 3px;
+    text-align: center;
+    
 }
