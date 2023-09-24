@@ -13,6 +13,13 @@ var contents = greetings = [
     "Xin chào"
   ];
 
+  function addfunction(){
+    buttonInput= document.querySelector(".addCard button");
+    buttonInput.onclick = function (){
+      createPopup();
+    }
+  }
+
 // Định nghĩa một biến để lưu trữ chỉ số của nội dung hiện tại
 var index = 0;
 // Định nghĩa một biến để lưu trữ chỉ số của ký tự hiện tại
@@ -38,90 +45,109 @@ function changeText() {
   }
 }
 // Định nghĩa một hàm để gọi hàm changeText sau mỗi 0.5 giây
-function startTimer() {
-  // localStorage.clear();
-  // Sử dụng hàm setInterval để gọi hàm changeText sau mỗi 500 mili giây
-  setInterval(changeText, 500);
-  var savedContent = localStorage.getItem("myDivContent");
-  if (savedContent) {
-    document.querySelector(".header_social").innerHTML = savedContent;
-  }
 
-}
-// Gọi hàm startTimer khi trang web được tải xong
-window.onload = startTimer;
-
-function add_card(){
-    var add_card=document.querySelector(".header_social");
-    add_card.innerHTML+= '<div class="social_card"></div>';
+// function add_card(){
+//     var add_card=document.querySelector(".header_social");
+//     add_card.innerHTML+= '<div class="comment_card"></div>';
     
-}
-
+// }
 
 
 function createPopup() {
   // Tạo một div mới để chứa popup
-  var popup = document.createElement("div");
-  popup.className = "popup_header";
-  // Tạo một input để người dùng nhập tên
-  var nameInput = document.createElement("input");
-  nameInput.type = "text";
-  nameInput.placeholder = "Tên của bạn";
-  nameInput.className = "popup_title"
-  popup.appendChild(nameInput);
-
-  // Tạo một textarea để người dùng nhập lời nhắn
-  var messageInput = document.createElement("textarea");
-  messageInput.placeholder = "Lời nhắn của bạn";
-  messageInput.className = "popup_message";
-  popup.appendChild(messageInput);
-
-
-  // Tạo thẻ div chứa 2 button
-  var div = document.createElement("div");
-  div.style.display="flex";
-  div.style.justifyContent="center";
-  div.style.gap="20px";
-  popup.appendChild(div);
-  // Tạo một nút để người dùng gửi thông tin
-  var submitButton = document.createElement("button");
-  submitButton.innerHTML = "GỬI";
-  submitButton.className = "popup_btn";
-  submitButton.onclick = function() {
+  var body = document.querySelector("body");
+  var popup = document.createElement('div');
+  popup.innerHTML = `
+  <div class="popup_header">
+  <input type="text" placeholder="Tên của bạn" class="popup_title">
+  <textarea placeholder="Lời nhắn của bạn" class="popup_message"></textarea>
+  <div>
+      <button class="popup_btn">GỬI</button>
+      <button class="popup_btn">HUỶ</button>
+  </div>
+  </div>`;
+  document.body.appendChild(popup);
+  submitButton = document.querySelectorAll('.popup_btn');
+  console.log(submitButton);
+  submitButton[0].onclick = function() {
       // Lấy giá trị từ input và textarea
-      var name = nameInput.value;
-      var message = messageInput.value;
+      var name = document.querySelector(".popup_title").value;
+      var message = document.querySelector(".popup_message").value;
       console.log(name, message);
       if(name != "" && message != "") {
-        // Tạo một thẻ social_card mới và lưu thông tin vào đó
+        // Tạo một thẻ comment_card mới và lưu thông tin vào đó
         var newSocialCard = document.createElement("div");
-        newSocialCard.className = "social_card";
+        newSocialCard.className = "comment_card";
         newSocialCard.innerHTML += "<h1> " + name + "</h1><p> " + message + "</p>";
-        document.querySelector(".header_social").appendChild(newSocialCard);
+        document.querySelector(".comments_card").appendChild(newSocialCard);
       }
 
       // Xử lý thông tin được gửi đi
-      console.log("Tên: " + name);
-      console.log("Lời nhắn: " + message);
-      var divContent = document.querySelector(".header_social").innerHTML;
-      localStorage.setItem("myDivContent", divContent);
+      var formData = {
+        name: name,
+        message: message,
+      }
+      createHandleComment(formData);
+      // console.log("Tên: " + name);
+      // console.log("Lời nhắn: " + message);
+      // var divContent = document.querySelector(".header_social").innerHTML;
+      // localStorage.setItem("myDivContent", divContent);
 
 
       // Đóng popup
       document.body.removeChild(popup);
   }
  
-  div.appendChild(submitButton);
 
    // Tạo nút huỷ
-  var cancelButton = document.createElement("button");
-  cancelButton.innerHTML = "HUỶ";
-  cancelButton.className = "popup_btn"
-  cancelButton.onclick = function() {
+   submitButton[1].onclick = function() {
     document.body.removeChild(popup);
-  }
-  div.appendChild(cancelButton);
+   }
 
   // Thêm popup vào trang
-  document.body.appendChild(popup);
+ 
+};
+
+var API = 'http://localhost:3000/comments'
+
+function getComments (callback){
+  fetch(API)
+  .then(comments => comments.json())
+  .then(callback)
 }
+
+function renderComments(comments){
+   var listComments = document.querySelector(".comments_card");
+   var html = comments.map(comment =>{
+    return `<div class="comment_card">
+              <h1>${comment.name}</h1>
+              <p>${comment.message}</p>
+              </div>
+    `
+   });
+   listComments.innerHTML = html.join('');
+   console.log(listComments.innerHTML)
+}
+
+function createHandleComment(data){
+  var options ={
+    method:'POST',
+    headers: {
+      "Content-Type": "application/json"  
+    },
+    body: JSON.stringify(data)
+  }
+  fetch(API,options)
+}
+
+
+
+function startTimer() {
+  addfunction();
+  // localStorage.clear();
+  // Sử dụng hàm setInterval để gọi hàm changeText sau mỗi 500 mili giây
+  setInterval(changeText, 500);
+  getComments(renderComments)
+}
+// Gọi hàm startTimer khi trang web được tải xong
+window.onload = startTimer;

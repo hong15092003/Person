@@ -93,16 +93,16 @@ body{
     border-radius: 100%;
 }
 
-.seenTo{
+.addCard{
     display: flex;
     justify-content: center;
     margin: 30px;
 }
 
-.seenTo:hover{
+.addCard:hover{
     opacity: 0.8;
 }
-.seenTo button{
+.addCard button{
     background-color: var(--orange);
     color: #ffffff;
     min-width: 100px;
@@ -111,9 +111,10 @@ body{
     border-radius: 7px;
     font-weight: 400;
     padding: 0 20px;
+    font-weight: 600;
 }
 
-.header_social{
+.comments_card{
     margin: 100px 20%;
     height: 300px;
     display: flex;
@@ -122,14 +123,14 @@ body{
     flex-wrap: wrap;
 }
 
-.header_social button{
+.comments_card button{
     width: 200px;
     height: 100%;
     background-color: var(--white);
     border-radius: 20px;
 }
 
-.social_card{
+.comment_card{
     width: 200px;
     height: 20%;
     background-color: var(--white);
@@ -140,7 +141,7 @@ body{
     gap: 10px;
 }
 
-.social_card:hover{
+.comment_card:hover{
     background-color: var(--orange);
     cursor: pointer;
     box-shadow: 0px 5px 10px var(--orange);
@@ -148,7 +149,7 @@ body{
     height: 100%;
     padding: 20px;
 }
-.social_card h1{
+.comment_card h1{
     font-size: 20px;
     margin-top: 20px;
     text-shadow: #5f9ef7 1px 0 1px;
@@ -157,12 +158,12 @@ body{
     text-transform:  uppercase;
 
 }
-.social_card p{
+.comment_card p{
     font-size: 10px;
     opacity: 0;
 }
-.social_card:hover h1, 
-.social_card:hover p{
+.comment_card:hover h1, 
+.comment_card:hover p{
     
     opacity: 1;
     text-shadow: none !important;
@@ -185,6 +186,11 @@ body{
     padding: 50px;
     gap: 30px;
     box-shadow: #000000 0px 0px 1111vw;
+}
+.popup_header > div{
+    display: flex; 
+    justify-content: 
+    center; gap: 20px;
 }
 .popup_title {
     border: none;
